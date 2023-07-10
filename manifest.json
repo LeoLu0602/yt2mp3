@@ -2,11 +2,13 @@
     "manifest_version": 2,
     "name": "yt2mp3",
     "version": "0.1.0",
-    "content_scripts": [
-      {
-        "matches": ["https://www.youtube.com/watch*"],
-        "js": ["script.js"],
-        "css": ["styles.css"]
-      }
-    ]
+    "permissions": [
+      "tabs"
+    ],    
+    "background": {
+      "scripts": ["popup.js"]
+    },
+    "browser_action": {
+      "default_popup": "popup.html"
+    }
   }
