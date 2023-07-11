@@ -4,7 +4,7 @@ const checkLink = (link) => {
 };
 
 const convert = (videoId) => {
-    console.log('[yt2mp3] Video ID: ' + videoId);
+    console.log('[yt2mp3] Video ID: ', videoId);
 
     fetch(`https://youtube-mp36.p.rapidapi.com/dl?id=${videoId}`, {
         method: 'GET',
@@ -13,15 +13,13 @@ const convert = (videoId) => {
             'X-RapidAPI-Host': 'youtube-mp36.p.rapidapi.com'
         }
     })
-    .then(response => {
-        return response.json();
-    })
+    .then(response => response.json())
     .then(data => {
-        console.log('[yt2mp3] Data: ' + data);
+        console.log('[yt2mp3] Data: ', data);
         window.open(data.link, '_blank');
     })
     .catch(error => {
-        console.log('[yt2mp3] Error: ' + error);
+        console.log('[yt2mp3] Error: ', error);
     });
 };
 
@@ -39,9 +37,13 @@ const downloadVideo = () => {
         console.log('[yt2mp3] Downloading...');
 
         const startIndex = link.indexOf('?') + 3;
-        const endIndex = link.indexOf('&');
-        const videoId = link.slice(startIndex, endIndex);
+        let endIndex = link.indexOf('&');
+
+        if (endIndex === -1) {
+            endIndex = link.length;
+        }
         
+        const videoId = link.slice(startIndex, endIndex);
         convert(videoId);
     });
 };
